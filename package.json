@@ -1,0 +1,35 @@
+{
+  "name": "window-flavors",
+  "version": "1.0.0",
+  "description": "A retro RPG menu look in plain CSS: framed windows in five flavors, a menu pointer, buttons, chips, counters and a moving backdrop.",
+  "private": true,
+  "type": "module",
+  "files": [
+    "tokens.css",
+    "components.css",
+    "window-flavors.css"
+  ],
+  "exports": {
+    ".": "./window-flavors.css",
+    "./window-flavors.css": "./window-flavors.css",
+    "./tokens.css": "./tokens.css",
+    "./components.css": "./components.css"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p .",
+    "format": "node --disable-warning=ExperimentalWarning node_modules/prettier/bin/prettier.cjs --write .",
+    "format:check": "node --disable-warning=ExperimentalWarning node_modules/prettier/bin/prettier.cjs --check .",
+    "check": "pnpm typecheck && pnpm format:check && pnpm test"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "@vitest/coverage-v8": "^5.0.5",
+    "prettier": "^3.9.10",
+    "typescript": "~6.0.3",
+    "vitest": "^5.0.5"
+  }
+}

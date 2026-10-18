@@ -1,0 +1,380 @@
+/* The pieces of the look. Each class starts with wf- and only works inside a .wf element, which sets the colors. */
+
+.wf {
+  color: var(--wf-ink);
+  font-family: var(--wf-body-font);
+  font-size: 17px;
+  line-height: 1.55;
+  overflow-wrap: break-word;
+  font-variant-ligatures: none;
+  font-synthesis: none;
+}
+
+.wf :where(a, button, select, textarea, input, summary):focus-visible {
+  outline: 3px solid var(--wf-focus);
+  outline-offset: 3px;
+}
+
+.wf-pixel {
+  font-family: var(--wf-pixel-font);
+  font-weight: 400;
+}
+
+.wf-pixelated {
+  image-rendering: pixelated;
+}
+
+.wf-muted {
+  color: var(--wf-muted);
+}
+
+.wf-accent {
+  color: var(--wf-accent);
+}
+
+/* A small heading in the pixel font, such as a section's name. */
+.wf-label {
+  font-family: var(--wf-pixel-font);
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--wf-accent);
+  text-transform: uppercase;
+}
+
+/* A window: light outer frame, dark gap, light inner frame. */
+.wf-window {
+  border: 3px solid var(--wf-frame);
+  border-radius: 16px;
+  background: var(--wf-fill);
+  padding: 3px;
+  box-shadow:
+    0 0 0 2px var(--wf-shadow),
+    0 8px 0 2px rgba(11, 8, 18, 0.5);
+}
+
+.wf-window-inner {
+  border: 2px solid var(--wf-frame);
+  border-radius: 11px;
+  padding: clamp(12px, 2.4vw, 22px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.wf-window-warn,
+.wf-window-warn > .wf-window-inner {
+  border-color: var(--wf-warn);
+}
+
+/* A sunken panel inside a window. */
+.wf-well {
+  background: var(--wf-well);
+  border: 2px solid var(--wf-frame);
+  border-radius: 10px;
+}
+
+/* The menu pointer: a small triangle on hover, focus and the current choice, always beside the focus outline. */
+.wf-pointer {
+  position: relative;
+}
+
+.wf-pointer::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  width: 9px;
+  height: 14px;
+  margin-top: -7px;
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wf-pointer:hover::before,
+.wf-pointer:focus-visible::before,
+.wf-pointer[aria-current="true"]::before,
+.wf-pointer[aria-pressed="true"]::before,
+.wf-pointer[aria-expanded="true"]::before {
+  opacity: 1;
+}
+
+.wf-button {
+  font-family: var(--wf-pixel-font);
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--wf-ink);
+  background: var(--wf-fill);
+  border: 2px solid var(--wf-frame);
+  border-radius: 10px;
+  padding: 6px 16px 6px 30px;
+  min-height: 44px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+}
+
+.wf-button-primary,
+.wf-button[aria-pressed="true"] {
+  color: var(--wf-fill);
+  background: var(--wf-frame);
+}
+
+.wf-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* One choice in a menu, outlined with dots until it's the current one. */
+.wf-choice {
+  min-width: 0;
+  text-align: left;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--wf-ink);
+  background: var(--wf-fill);
+  border: 2px dotted var(--wf-muted);
+  border-radius: 10px;
+  padding: 6px 10px 8px 30px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.wf-choice.wf-pointer::before {
+  top: 21px;
+}
+
+.wf-choice[aria-current="true"],
+.wf-choice[aria-expanded="true"] {
+  color: var(--wf-fill);
+  background: var(--wf-frame);
+  border: 2px solid var(--wf-frame);
+}
+
+.wf-chip {
+  border: 2px solid var(--wf-frame);
+  border-radius: 8px;
+  padding: 1px 10px;
+}
+
+.wf-chip.wf-pixel {
+  text-transform: uppercase;
+}
+
+.wf-chip-warn {
+  color: var(--wf-fill);
+  background: var(--wf-warn);
+  border-color: var(--wf-warn);
+}
+
+.wf-chip-accent {
+  color: var(--wf-fill);
+  background: var(--wf-accent);
+  border-color: var(--wf-accent);
+}
+
+.wf-input {
+  font: inherit;
+  font-size: 17px;
+  color: var(--wf-ink);
+  background: var(--wf-well);
+  border: 2px solid var(--wf-frame);
+  border-radius: 10px;
+  min-height: 44px;
+  padding: 8px 12px;
+  width: 100%;
+}
+
+textarea.wf-input {
+  line-height: 1.5;
+  resize: vertical;
+}
+
+/* A rolling counter: one drum per digit. */
+.wf-drums {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  background: var(--wf-well);
+  border: 2px solid var(--wf-frame);
+  border-radius: 6px;
+  vertical-align: middle;
+}
+
+.wf-drum {
+  display: inline-block;
+  min-width: 16px;
+  padding: 0 3px;
+  text-align: center;
+  font-family: var(--wf-pixel-font);
+  font-size: 20px;
+  line-height: 26px;
+  color: var(--wf-drum-ink);
+  background: linear-gradient(
+    180deg,
+    var(--wf-drum-edge) 0%,
+    var(--wf-drum) 32%,
+    var(--wf-drum) 68%,
+    var(--wf-drum-edge) 100%
+  );
+  border-radius: 3px;
+}
+
+/* A meter; its span's width is the amount. */
+.wf-bar {
+  height: 12px;
+  padding: 2px;
+  background: var(--wf-well);
+  border: 2px solid var(--wf-frame);
+  border-radius: 4px;
+}
+
+.wf-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--wf-accent);
+  border-radius: 2px;
+}
+
+.wf-skip-link {
+  position: absolute;
+  left: 16px;
+  top: -200px;
+  z-index: 10;
+  font-size: 18px;
+  color: var(--wf-fill);
+  background: var(--wf-frame);
+  border: 3px solid var(--wf-fill);
+  border-radius: 10px;
+  padding: 8px 16px;
+  min-height: 44px;
+  text-decoration: none;
+}
+
+.wf-skip-link:focus {
+  top: 16px;
+}
+
+/* The moving background. It fills the nearest positioned ancestor and sits behind the windows, never under text. */
+.wf-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--wf-backdrop);
+}
+
+.wf-backdrop-bands {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -600px;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    #2b1460 0px,
+    #4b1f7c 90px,
+    #7b2a88 180px,
+    #b0406f 260px,
+    #d8744b 300px,
+    #b0406f 340px,
+    #7b2a88 420px,
+    #4b1f7c 510px,
+    #2b1460 600px
+  );
+  animation: wf-bands 64s linear infinite;
+}
+
+.wf-backdrop-sway {
+  position: absolute;
+  inset: -80px 0;
+  animation: wf-sway 18s ease-in-out infinite alternate;
+}
+
+.wf-backdrop-waves-a,
+.wf-backdrop-waves-b {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.wf-backdrop-waves-a {
+  left: -120px;
+  right: -120px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30'%3E%3Cpath d='M0 15 C15 3 45 3 60 15 S105 27 120 15' fill='none' stroke='%23ffe9b8' stroke-opacity='0.26' stroke-width='5'/%3E%3C/svg%3E");
+  animation: wf-drift-a 32s linear infinite;
+}
+
+.wf-backdrop-waves-b {
+  left: -100px;
+  right: -100px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='46'%3E%3Cpath d='M0 23 C20 6 60 6 80 23 S140 40 160 23' fill='none' stroke='%237ef0d8' stroke-opacity='0.22' stroke-width='7'/%3E%3C/svg%3E");
+  transform: rotate(-9deg);
+  animation: wf-drift-b 40s ease-in-out infinite alternate;
+}
+
+.wf-backdrop-dots {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(rgba(12, 4, 30, 0.35) 1px, transparent 1.6px) 0 0 / 6px 6px;
+}
+
+.wf-backdrop.wf-paused .wf-moving {
+  animation-play-state: paused;
+}
+
+@keyframes wf-bands {
+  to {
+    transform: translateY(600px);
+  }
+}
+@keyframes wf-drift-a {
+  to {
+    transform: translateX(120px);
+  }
+}
+@keyframes wf-drift-b {
+  from {
+    transform: rotate(-9deg) translateX(-80px);
+  }
+  to {
+    transform: rotate(-9deg) translateX(80px);
+  }
+}
+@keyframes wf-sway {
+  from {
+    transform: skewY(-1.5deg) scaleY(1);
+  }
+  to {
+    transform: skewY(1.5deg) scaleY(1.03);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wf-moving {
+    animation: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .wf-backdrop {
+    display: none;
+  }
+  .wf-pointer::before,
+  .wf-bar > span {
+    background: CanvasText;
+    forced-color-adjust: none;
+  }
+  .wf-drum {
+    border: 1px solid CanvasText;
+  }
+  .wf-choice[aria-current="true"],
+  .wf-choice[aria-expanded="true"] {
+    border-style: double;
+    border-width: 4px;
+  }
+}

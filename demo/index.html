@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Window flavors</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=DotGothic16&display=swap"
+    />
+    <link rel="stylesheet" href="../window-flavors.css" />
+    <style>
+      body {
+        margin: 0;
+        background: #24104d;
+      }
+      .stage {
+        position: relative;
+        isolation: isolate;
+        min-height: 100vh;
+        padding: 32px clamp(12px, 3vw, 32px);
+      }
+      .flavors {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+        gap: 24px;
+      }
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+      h1 {
+        max-width: 1200px;
+        margin: 0 auto 24px;
+        font-size: clamp(32px, 6vw, 48px);
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+      }
+      .choices {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 8px;
+      }
+      .choices .wf-choice {
+        width: 100%;
+      }
+      .well {
+        padding: 10px 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wf stage">
+      <div class="wf-backdrop" aria-hidden="true">
+        <div class="wf-backdrop-bands wf-moving"></div>
+        <div class="wf-backdrop-sway wf-moving">
+          <div class="wf-backdrop-waves-a wf-moving"></div>
+          <div class="wf-backdrop-waves-b wf-moving"></div>
+        </div>
+        <div class="wf-backdrop-dots"></div>
+      </div>
+      <h1 class="wf-pixel">Window flavors</h1>
+      <main class="flavors"></main>
+    </div>
+    <template id="flavor-window">
+      <div class="wf-window-inner">
+        <p class="wf-label">Flavor</p>
+        <h2 class="wf-pixel"></h2>
+        <p>Body text, with <span class="wf-accent">accent</span> and <span class="wf-muted">muted</span> words.</p>
+        <div class="row">
+          <button type="button" class="wf-button wf-pointer">Button</button>
+          <button type="button" class="wf-button wf-button-primary wf-pointer">Primary</button>
+          <button type="button" class="wf-button wf-pointer" disabled>Disabled</button>
+        </div>
+        <ul class="choices">
+          <li><button type="button" class="wf-choice wf-pointer" aria-current="true">The current choice</button></li>
+          <li><button type="button" class="wf-choice wf-pointer">Another choice</button></li>
+        </ul>
+        <div class="row">
+          <span class="wf-chip">Chip</span>
+          <span class="wf-chip wf-pixel">Pixel</span>
+          <span class="wf-chip wf-chip-accent">Accent</span>
+          <span class="wf-chip wf-chip-warn">Warn</span>
+        </div>
+        <div class="row">
+          <span class="wf-drums" role="img" aria-label="42"
+            ><span class="wf-drum">0</span><span class="wf-drum">4</span><span class="wf-drum">2</span></span
+          >
+          <div class="wf-bar" style="flex: 1 1 120px" role="img" aria-label="60 percent">
+            <span style="width: 60%"></span>
+          </div>
+        </div>
+        <label class="row"><span class="wf-label">Input</span><input class="wf-input" value="Some text" /></label>
+        <p class="wf-well well">A well, for a sunken panel.</p>
+      </div>
+    </template>
+    <script type="module">
+      // One window per flavor, each from the same template.
+      const flavors = document.querySelector(".flavors");
+      const template = document.querySelector("#flavor-window");
+      for (const flavor of ["plain", "mint", "strawberry", "banana", "peanut"]) {
+        const section = document.createElement("section");
+        section.className = "wf wf-window";
+        section.dataset.flavor = flavor;
+        section.setAttribute("aria-labelledby", `${flavor}-heading`);
+        section.append(template.content.cloneNode(true));
+        const heading = section.querySelector("h2");
+        heading.id = `${flavor}-heading`;
+        heading.textContent = flavor[0].toUpperCase() + flavor.slice(1);
+        flavors.append(section);
+      }
+    </script>
+  </body>
+</html>
