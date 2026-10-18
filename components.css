@@ -3,7 +3,7 @@
 .wf {
   color: var(--wf-ink);
   font-family: var(--wf-body-font);
-  font-size: 17px;
+  font-size: var(--wf-text);
   line-height: 1.55;
   overflow-wrap: break-word;
   font-variant-ligatures: none;
@@ -15,9 +15,11 @@
   outline-offset: 3px;
 }
 
+/* Pixel text is 16px unless a rule gives it another --wf-pixel size. */
 .wf-pixel {
   font-family: var(--wf-pixel-font);
   font-weight: 400;
+  font-size: var(--wf-pixel-1);
 }
 
 .wf-pixelated {
@@ -36,29 +38,39 @@
 .wf-label {
   font-family: var(--wf-pixel-font);
   font-weight: 400;
-  font-size: 18px;
+  font-size: var(--wf-pixel-1);
   color: var(--wf-accent);
   text-transform: uppercase;
 }
 
-/* A window: light outer frame, dark gap, light inner frame. */
+/* A window: light outer frame, dark gap, light inner frame. It unfolds from a line when it appears. */
 .wf-window {
   border: 3px solid var(--wf-frame);
-  border-radius: 16px;
+  border-radius: var(--wf-radius-window);
   background: var(--wf-fill);
   padding: 3px;
   box-shadow:
     0 0 0 2px var(--wf-shadow),
     0 8px 0 2px rgba(11, 8, 18, 0.5);
+  animation: wf-open 0.24s steps(4) backwards;
+}
+
+@keyframes wf-open {
+  from {
+    clip-path: inset(50% 0 50% 0);
+  }
+  to {
+    clip-path: inset(-16px);
+  }
 }
 
 .wf-window-inner {
   border: 2px solid var(--wf-frame);
-  border-radius: 11px;
-  padding: clamp(12px, 2.4vw, 22px);
+  border-radius: calc(var(--wf-radius-window) - 5px);
+  padding: clamp(var(--wf-space-3), 2.4vw, var(--wf-space-5));
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--wf-space-3);
 }
 
 .wf-window-warn,
@@ -70,10 +82,11 @@
 .wf-well {
   background: var(--wf-well);
   border: 2px solid var(--wf-frame);
-  border-radius: 10px;
+  border-radius: var(--wf-radius);
 }
 
-/* The menu pointer: a small triangle on hover, focus and the current choice, always beside the focus outline. */
+/* The menu pointer: a small triangle on hover, focus and the current choice, always beside the focus outline. On the
+   current choice it nudges a few times and then waits, so it never moves for more than five seconds. */
 .wf-pointer {
   position: relative;
 }
@@ -100,21 +113,32 @@
   opacity: 1;
 }
 
+.wf-pointer[aria-current="true"]::before,
+.wf-pointer[aria-expanded="true"]::before {
+  animation: wf-nudge 0.8s ease-in-out 4;
+}
+
+@keyframes wf-nudge {
+  50% {
+    translate: 3px 0;
+  }
+}
+
 .wf-button {
   font-family: var(--wf-pixel-font);
   font-weight: 400;
-  font-size: 18px;
+  font-size: var(--wf-pixel-1);
   color: var(--wf-ink);
   background: var(--wf-fill);
   border: 2px solid var(--wf-frame);
-  border-radius: 10px;
-  padding: 6px 16px 6px 30px;
-  min-height: 44px;
+  border-radius: var(--wf-radius);
+  padding: var(--wf-space-1) var(--wf-space-4) var(--wf-space-1) var(--wf-pointer-room);
+  min-height: var(--wf-target);
   cursor: pointer;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--wf-space-2);
   text-align: left;
 }
 
@@ -134,14 +158,14 @@
   min-width: 0;
   text-align: left;
   font: inherit;
-  font-size: 16px;
+  font-size: var(--wf-text-small);
   line-height: 1.4;
   color: var(--wf-ink);
   background: var(--wf-fill);
   border: 2px dotted var(--wf-muted);
-  border-radius: 10px;
-  padding: 6px 10px 8px 30px;
-  min-height: 44px;
+  border-radius: var(--wf-radius);
+  padding: var(--wf-space-2) var(--wf-space-3) var(--wf-space-2) var(--wf-pointer-room);
+  min-height: var(--wf-target);
   cursor: pointer;
 }
 
@@ -158,8 +182,8 @@
 
 .wf-chip {
   border: 2px solid var(--wf-frame);
-  border-radius: 8px;
-  padding: 1px 10px;
+  border-radius: var(--wf-radius);
+  padding: 1px var(--wf-space-3);
 }
 
 .wf-chip.wf-pixel {
@@ -180,13 +204,13 @@
 
 .wf-input {
   font: inherit;
-  font-size: 17px;
+  font-size: var(--wf-text);
   color: var(--wf-ink);
   background: var(--wf-well);
   border: 2px solid var(--wf-frame);
-  border-radius: 10px;
-  min-height: 44px;
-  padding: 8px 12px;
+  border-radius: var(--wf-radius);
+  min-height: var(--wf-target);
+  padding: var(--wf-space-2) var(--wf-space-3);
   width: 100%;
 }
 
@@ -195,25 +219,28 @@ textarea.wf-input {
   resize: vertical;
 }
 
-/* A rolling counter: one drum per digit. */
+/* A rolling counter: one drum per character. A digit's drum holds a wf-drum-strip of 0 to 9 and shows the digit in
+   its --wf-digit, rolling to a new one when that changes; any other character sits in its drum as plain text. */
 .wf-drums {
   display: inline-flex;
   gap: 2px;
   padding: 2px;
   background: var(--wf-well);
   border: 2px solid var(--wf-frame);
-  border-radius: 6px;
+  border-radius: var(--wf-radius-small);
   vertical-align: middle;
 }
 
 .wf-drum {
   display: inline-block;
+  height: 24px;
+  overflow: hidden;
   min-width: 16px;
-  padding: 0 3px;
+  padding: 0 var(--wf-space-1);
   text-align: center;
   font-family: var(--wf-pixel-font);
-  font-size: 20px;
-  line-height: 26px;
+  font-size: var(--wf-pixel-1);
+  line-height: 24px;
   color: var(--wf-drum-ink);
   background: linear-gradient(
     180deg,
@@ -222,7 +249,16 @@ textarea.wf-input {
     var(--wf-drum) 68%,
     var(--wf-drum-edge) 100%
   );
-  border-radius: 3px;
+  border-radius: var(--wf-radius-small);
+}
+
+.wf-drum-strip {
+  display: block;
+  width: min-content;
+  margin: 0 auto;
+  word-break: break-all;
+  transform: translateY(calc(var(--wf-digit, 0) * -24px));
+  transition: transform 0.6s ease-out;
 }
 
 /* A meter; its span's width is the amount. */
@@ -231,38 +267,43 @@ textarea.wf-input {
   padding: 2px;
   background: var(--wf-well);
   border: 2px solid var(--wf-frame);
-  border-radius: 4px;
+  border-radius: var(--wf-radius-small);
 }
 
 .wf-bar > span {
   display: block;
   height: 100%;
   background: var(--wf-accent);
-  border-radius: 2px;
+  border-radius: calc(var(--wf-radius-small) / 2);
 }
 
 .wf-skip-link {
   position: absolute;
-  left: 16px;
+  left: var(--wf-space-4);
   top: -200px;
   z-index: 10;
-  font-size: 18px;
+  font-size: var(--wf-pixel-1);
   color: var(--wf-fill);
   background: var(--wf-frame);
   border: 3px solid var(--wf-fill);
-  border-radius: 10px;
-  padding: 8px 16px;
-  min-height: 44px;
+  border-radius: var(--wf-radius);
+  padding: var(--wf-space-2) var(--wf-space-4);
+  min-height: var(--wf-target);
   text-decoration: none;
 }
 
 .wf-skip-link:focus {
-  top: 16px;
+  top: var(--wf-space-4);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .wf-moving {
+  .wf-moving,
+  .wf-window,
+  .wf-pointer::before {
     animation: none !important;
+  }
+  .wf-drum-strip {
+    transition: none;
   }
 }
 

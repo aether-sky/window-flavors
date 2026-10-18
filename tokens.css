@@ -64,4 +64,28 @@
   --wf-shadow: #0b0812;
   --wf-drum-ink: #14111b;
   --wf-backdrop: #24104d;
+
+  /* Pixel text comes only in whole multiples of the font's 16px dot grid, so every dot lands on a screen pixel. */
+  --wf-pixel-1: 16px;
+  --wf-pixel-2: 32px;
+  --wf-pixel-3: 48px;
+  --wf-text-small: 15px;
+  --wf-text: 17px;
+  --wf-text-large: 20px;
+
+  --wf-space-1: 4px;
+  --wf-space-2: 8px;
+  --wf-space-3: 12px;
+  --wf-space-4: 16px;
+  --wf-space-5: 24px;
+  --wf-space-6: 32px;
+  --wf-space-7: 48px;
+
+  --wf-radius-small: 4px;
+  --wf-radius: 10px;
+  --wf-radius-window: 16px;
+
+  /* Room on the left of a control for the menu pointer, and the smallest a control may be to tap. */
+  --wf-pointer-room: 30px;
+  --wf-target: 44px;
 }

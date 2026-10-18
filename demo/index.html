@@ -35,7 +35,10 @@
         margin: 0;
       }
       h1 {
-        font-size: clamp(32px, 6vw, 48px);
+        font-size: var(--wf-pixel-3);
+      }
+      h2 {
+        font-size: var(--wf-pixel-2);
       }
       .header {
         max-width: 1200px;
@@ -130,9 +133,12 @@
           <span class="wf-chip wf-chip-warn">Warn</span>
         </div>
         <div class="row">
-          <span class="wf-drums" role="img" aria-label="42"
-            ><span class="wf-drum">0</span><span class="wf-drum">4</span><span class="wf-drum">2</span></span
+          <span class="wf-drums" role="img" aria-label="42" data-counter
+            ><span class="wf-drum"><span class="wf-drum-strip" style="--wf-digit: 0">0123456789</span></span
+            ><span class="wf-drum"><span class="wf-drum-strip" style="--wf-digit: 4">0123456789</span></span
+            ><span class="wf-drum"><span class="wf-drum-strip" style="--wf-digit: 2">0123456789</span></span></span
           >
+          <button type="button" class="wf-button wf-pointer" data-roll>Roll</button>
           <div class="wf-bar" style="flex: 1 1 120px" role="img" aria-label="60 percent">
             <span style="width: 60%"></span>
           </div>
@@ -170,6 +176,18 @@
         heading.id = `${flavor}-heading`;
         heading.textContent = flavor[0].toUpperCase() + flavor.slice(1);
         flavors.append(section);
+      }
+
+      // Each Roll button sends its counter to a new number, so the drums roll.
+      for (const button of document.querySelectorAll("[data-roll]")) {
+        button.addEventListener("click", () => {
+          const counter = button.parentElement.querySelector("[data-counter]");
+          const value = String(Math.floor(Math.random() * 1000)).padStart(3, "0");
+          counter.setAttribute("aria-label", String(Number(value)));
+          counter
+            .querySelectorAll(".wf-drum-strip")
+            .forEach((strip, index) => strip.style.setProperty("--wf-digit", value[index]));
+        });
       }
     </script>
   </body>
