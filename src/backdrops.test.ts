@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { listAnimations, listBackdrops, listKeyframes } from "./backdrops.ts";
+import { listBackdrops } from "./backdrops.ts";
+import { listAnimations, listKeyframes } from "./css.ts";
 
 const read = (file: string): string => readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
 const css = read("backdrops.css");
@@ -28,18 +29,5 @@ describe("backdrops.css", () => {
     const demo = read("demo/index.html");
     expect(backdrops.filter((name) => !readme.includes(`\`${name}\``))).toEqual([]);
     expect(backdrops.filter((name) => !demo.includes(`<option>${name}</option>`))).toEqual([]);
-  });
-});
-
-describe("listAnimations", () => {
-  it("reads each animation in a list, skipping none", () => {
-    expect(
-      listAnimations(
-        "a { animation: wf-spin 120s linear infinite, wf-hue 40s linear infinite; } b { animation: none; }",
-      ),
-    ).toEqual([
-      { name: "wf-spin", seconds: 120 },
-      { name: "wf-hue", seconds: 40 },
-    ]);
   });
 });
