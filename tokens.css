@@ -1,0 +1,67 @@
+/* The colors of everything inside a .wf element, picked with its data-flavor attribute; plain when it has none. */
+.wf,
+.wf[data-flavor="plain"] {
+  --wf-fill: #16131e;
+  --wf-well: #0c0a12;
+  --wf-frame: #f3efe4;
+  --wf-ink: #f6f3ea;
+  --wf-accent: #ffd75e;
+  --wf-muted: #c6c0d2;
+  --wf-warn: #ff9f80;
+  --wf-drum: #fffdf4;
+  --wf-drum-edge: #cfc8b8;
+}
+.wf[data-flavor="mint"] {
+  --wf-fill: #0d211b;
+  --wf-well: #06130f;
+  --wf-frame: #c4f2da;
+  --wf-ink: #eefcf5;
+  --wf-accent: #7eefc0;
+  --wf-muted: #b0d5c5;
+  --wf-warn: #ffab8a;
+  --wf-drum: #f3fff9;
+  --wf-drum-edge: #b6dccb;
+}
+.wf[data-flavor="strawberry"] {
+  --wf-fill: #2a0e1d;
+  --wf-well: #1a0711;
+  --wf-frame: #ffcfdf;
+  --wf-ink: #fff2f6;
+  --wf-accent: #ffa3c4;
+  --wf-muted: #e6bccb;
+  --wf-warn: #ffc46b;
+  --wf-drum: #fff6f9;
+  --wf-drum-edge: #e7bfcd;
+}
+.wf[data-flavor="banana"] {
+  --wf-fill: #211b05;
+  --wf-well: #141003;
+  --wf-frame: #fff0a3;
+  --wf-ink: #fffbe8;
+  --wf-accent: #ffe45a;
+  --wf-muted: #dcd19f;
+  --wf-warn: #ffa184;
+  --wf-drum: #fffcea;
+  --wf-drum-edge: #e1d48f;
+}
+.wf[data-flavor="peanut"] {
+  --wf-fill: #24160b;
+  --wf-well: #160d06;
+  --wf-frame: #f0d6b4;
+  --wf-ink: #fbf3e8;
+  --wf-accent: #f6bb7c;
+  --wf-muted: #d6c1a7;
+  --wf-warn: #ff9b9b;
+  --wf-drum: #fff8ef;
+  --wf-drum-edge: #d9bf9c;
+}
+
+/* The same in every flavor. */
+.wf {
+  --wf-pixel-font: "DotGothic16", "Courier New", monospace;
+  --wf-body-font: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --wf-focus: #5fe1ff;
+  --wf-shadow: #0b0812;
+  --wf-drum-ink: #14111b;
+  --wf-backdrop: #24104d;
+}
