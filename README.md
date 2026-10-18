@@ -1,4 +1,4 @@
-﻿# Window flavors
+# Window flavors
 
 A retro RPG menu look in plain CSS: double-framed windows in five flavors (plain, mint, strawberry, banana and peanut),
 a menu pointer, buttons, menu choices, chips, rolling counters, meters and a moving backdrop. It's plain CSS so the
@@ -46,7 +46,7 @@ Without them, the style falls back to Courier New and the system font.
 | `wf`                                                            | Sets the colors and body text for everything inside                                          |
 | `wf-window`, `wf-window-inner`, `wf-window-warn`                | A window: outer frame, gap, inner frame; warn draws the frames in warn color                 |
 | `wf-well`                                                       | A sunken panel inside a window                                                               |
-| `wf-pointer`                                                    | The â–¶ beside a control on hover, focus, `aria-current`, `aria-pressed` and `aria-expanded` |
+| `wf-pointer`                                                    | The ▶ beside a control on hover, focus, `aria-current`, `aria-pressed` and `aria-expanded` |
 | `wf-button`, `wf-button-primary`                                | A menu button; primary and `aria-pressed="true"` are filled                                  |
 | `wf-choice`                                                     | A menu choice, dotted until `aria-current` or `aria-expanded` is true                        |
 | `wf-chip`, `wf-chip-accent`, `wf-chip-warn`                     | A small tag                                                                                  |
