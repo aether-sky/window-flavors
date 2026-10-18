@@ -153,7 +153,7 @@
   cursor: default;
 }
 
-/* One choice in a menu, outlined with dots until it's the current one. */
+/* One choice in a menu, on a faint sunken fill; hovering outlines it, and the current one is filled with the frame. */
 .wf-choice {
   min-width: 0;
   text-align: left;
@@ -161,12 +161,16 @@
   font-size: var(--wf-text-small);
   line-height: 1.4;
   color: var(--wf-ink);
-  background: var(--wf-fill);
-  border: 2px dotted var(--wf-muted);
+  background: var(--wf-well);
+  border: 2px solid transparent;
   border-radius: var(--wf-radius);
   padding: var(--wf-space-2) var(--wf-space-3) var(--wf-space-2) var(--wf-pointer-room);
   min-height: var(--wf-target);
   cursor: pointer;
+}
+
+.wf-choice:hover {
+  border-color: var(--wf-muted);
 }
 
 .wf-choice.wf-pointer::before {
@@ -315,6 +319,9 @@ textarea.wf-input {
   }
   .wf-drum {
     border: 1px solid CanvasText;
+  }
+  .wf-choice {
+    border-color: ButtonBorder;
   }
   .wf-choice[aria-current="true"],
   .wf-choice[aria-expanded="true"] {
