@@ -1,3 +1,4 @@
-/* The whole style: the flavors' colors, then the pieces. */
+/* The whole style: the flavors' colors, the pieces, then the backdrops. */
 @import "./tokens.css";
 @import "./components.css";
+@import "./backdrops.css";

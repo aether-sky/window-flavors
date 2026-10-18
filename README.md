@@ -1,10 +1,10 @@
 ﻿# Window flavors
 
 A retro RPG menu look in plain CSS: double-framed windows in five flavors (plain, mint, strawberry, banana and peanut),
-a menu pointer, buttons, menu choices, chips, rolling counters, meters and a moving backdrop. It's plain CSS so the
+a menu pointer, buttons, menu choices, chips, rolling counters, meters and ten moving backdrops. It's plain CSS so the
 same files work in a Vue app, a static page or an Astro site.
 
-Open `demo/index.html` in a browser to see every piece in every flavor.
+Open `demo/index.html` in a browser to see every piece in every flavor, with a menu to switch backdrops.
 
 ## Using it
 
@@ -14,7 +14,7 @@ Install it from GitHub at a tag:
 pnpm add github:aether-sky/window-flavors#v1.0.0
 ```
 
-Then load `window-flavors/window-flavors.css`, or `tokens.css` and `components.css` on their own. With a bundler such
+Then load `window-flavors/window-flavors.css`, or `tokens.css`, `components.css` and `backdrops.css` on their own. With a bundler such
 as Vite, `import "window-flavors";`. A static page can link the file from `node_modules` or copy it at build time.
 
 Everything only applies inside an element with the `wf` class, so the style can sit in one part of a page without
@@ -57,11 +57,39 @@ Without them, the style falls back to Courier New and the system font.
 | `wf-skip-link`                                                  | A skip link that shows on focus                                                              |
 | `wf-backdrop` and its parts                                     | The moving background; see below                                                             |
 
-The backdrop fills its nearest positioned ancestor and sits behind it, so that ancestor needs `position: relative` and
-`isolation: isolate`. Its parts, in order, are `wf-backdrop-bands`, `wf-backdrop-sway` holding `wf-backdrop-waves-a`
-and `wf-backdrop-waves-b`, and `wf-backdrop-dots`; the moving ones also have `wf-moving`. Adding `wf-paused` to
-`wf-backdrop` pauses it, and it stays still when the system asks for reduced motion. Give the page a pause button for
-it, as WCAG asks of anything that moves for more than five seconds.
+## Backdrops
+
+A backdrop fills its nearest positioned ancestor and sits behind it, so that ancestor needs `position: relative` and
+`isolation: isolate`. Keep text in windows, never straight on a backdrop. `data-backdrop` on `wf-backdrop` picks one;
+without it, the backdrop is sunset. Every backdrop uses the same markup:
+
+```html
+<div class="wf-backdrop" data-backdrop="stars" aria-hidden="true">
+  <div class="wf-backdrop-base wf-moving"></div>
+  <div class="wf-backdrop-sway wf-moving">
+    <div class="wf-backdrop-layer-a wf-moving"></div>
+    <div class="wf-backdrop-layer-b wf-moving"></div>
+  </div>
+  <div class="wf-backdrop-overlay"></div>
+</div>
+```
+
+| `data-backdrop` | What moves                                                      |
+| --------------- | --------------------------------------------------------------- |
+| `sunset`        | Purple and orange bands rolling down under cream and mint waves |
+| `checker`       | A mint checkerboard sliding diagonally over violet, wobbling    |
+| `stripes`       | Pink candy stripes and thin yellow ones crossing on the slant   |
+| `rings`         | Two sets of circles, mint and gold, slowly swelling out of step |
+| `zigzag`        | Two rows of zigzags running opposite ways over deep green       |
+| `stars`         | Two layers of stars falling at different speeds                 |
+| `grid`          | A pink grid rolling toward the horizon under a setting sun      |
+| `bubbles`       | Rings of foam rising through dark water                         |
+| `plaid`         | Peach rows and rose columns sliding past each other             |
+| `swirl`         | A slow color wheel turning while its colors cycle               |
+
+Adding `wf-paused` to `wf-backdrop` pauses it, and it stays still when the system asks for reduced motion. Give the
+page a pause button for it, as WCAG asks of anything that moves for more than five seconds. Every loop takes 8 seconds
+or more, so nothing flashes.
 
 ## Accessibility
 

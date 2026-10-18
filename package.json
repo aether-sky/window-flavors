@@ -7,13 +7,15 @@
   "files": [
     "tokens.css",
     "components.css",
+    "backdrops.css",
     "window-flavors.css"
   ],
   "exports": {
     ".": "./window-flavors.css",
     "./window-flavors.css": "./window-flavors.css",
     "./tokens.css": "./tokens.css",
-    "./components.css": "./components.css"
+    "./components.css": "./components.css",
+    "./backdrops.css": "./backdrops.css"
   },
   "engines": {
     "node": ">=24"
