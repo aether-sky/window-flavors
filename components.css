@@ -111,6 +111,7 @@
   padding: 6px 16px 6px 30px;
   min-height: 44px;
   cursor: pointer;
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 8px;

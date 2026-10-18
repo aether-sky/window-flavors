@@ -4,7 +4,8 @@ A retro RPG menu look in plain CSS: double-framed windows in five flavors (plain
 a menu pointer, buttons, menu choices, chips, rolling counters, meters and ten moving backdrops. It's plain CSS so the
 same files work in a Vue app, a static page or an Astro site.
 
-Open `demo/index.html` in a browser to see every piece in every flavor, with a menu to switch backdrops.
+Open `demo/index.html` in a browser to see every piece in every flavor, with a menu to switch backdrops, and
+`demo/backdrops.html` to see all ten backdrops moving side by side.
 
 ## Using it
 

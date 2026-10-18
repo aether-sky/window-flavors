@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Backdrop gallery</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=DotGothic16&display=swap"
+    />
+    <link rel="stylesheet" href="../window-flavors.css" />
+    <style>
+      body {
+        margin: 0;
+        background: #0c0a12;
+      }
+      .page {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 24px clamp(12px, 3vw, 32px);
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .head .wf-window-inner {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      h1,
+      p {
+        margin: 0;
+      }
+      .tiles {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+        gap: 20px;
+      }
+      .tile {
+        margin: 0;
+        position: relative;
+        isolation: isolate;
+        height: 520px;
+        overflow: hidden;
+        border-radius: 16px;
+        display: flex;
+        align-items: flex-start;
+        padding: 14px;
+      }
+      .tile figcaption {
+        width: 100%;
+      }
+      .tile .wf-window-inner {
+        gap: 4px;
+        padding: 10px 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wf page">
+      <header class="head wf-window">
+        <div class="wf-window-inner">
+          <h1 class="wf-pixel">Backdrops</h1>
+          <a class="wf-button wf-pointer" href="index.html">Every piece</a>
+          <button type="button" class="wf-button wf-pointer" id="pause" aria-pressed="false">Pause all</button>
+        </div>
+      </header>
+      <main class="tiles">
+        <figure class="tile">
+          <div class="wf-backdrop" data-backdrop="sunset" aria-hidden="true">
+            <div class="wf-backdrop-base wf-moving"></div>
+            <div class="wf-backdrop-sway wf-moving">
+              <div class="wf-backdrop-layer-a wf-moving"></div>
+              <div class="wf-backdrop-layer-b wf-moving"></div>
+            </div>
+            <div class="wf-backdrop-overlay"></div>
+          </div>
+          <figcaption class="wf-window">
+            <div class="wf-window-inner">
+              <p class="wf-label">1 · sunset</p>
+              <p>Purple and orange bands rolling down under cream and mint waves</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="tile">
+          <div class="wf-backdrop" data-backdrop="checker" aria-hidden="true">
+            <div class="wf-backdrop-base wf-moving"></div>
+            <div class="wf-backdrop-sway wf-moving">
+              <div class="wf-backdrop-layer-a wf-moving"></div>
+              <div class="wf-backdrop-layer-b wf-moving"></div>
+            </div>
+            <div class="wf-backdrop-overlay"></div>
+          </div>
+          <figcaption class="wf-window">
+            <div class="wf-window-inner">
+              <p class="wf-label">2 · checker</p>
+              <p>A mint checkerboard sliding diagonally over violet, wobbling</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="tile">
+          <div class="wf-backdrop" data-backdrop="stripes" aria-hidden="true">
+            <div class="wf-backdrop-base wf-moving"></div>
+            <div class="wf-backdrop-sway wf-moving">
+              <div class="wf-backdrop-layer-a wf-moving"></div>
+              <div class="wf-backdrop-layer-b wf-moving"></div>
+            </div>
+            <div class="wf-backdrop-overlay"></div>
+          </div>
+          <figcaption class="wf-window">
+            <div class="wf-window-inner">
+              <p class="wf-label">3 · stripes</p>
+              <p>Pink candy stripes and thin yellow ones crossing on the slant</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="tile">
+          <div class="wf-backdrop" data-backdrop="rings" aria-hidden="true">
+            <div class="wf-backdrop-base wf-moving"></div>
+            <div class="wf-backdrop-sway wf-moving">
+              <div class="wf-backdrop-layer-a wf-moving"></div>
+              <div class="wf-backdrop-layer-b wf-moving"></div>
+            </div>
+            <div class="wf-backdrop-overlay"></div>
+          </div>
+          <figcaption class="wf-window">
+            <div class="wf-window-inner">
+              <p class="wf-label">4 · rings</p>
+              <p>Mint and gold circles slowly swelling, out of step</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="tile">
+          <div class="wf-backdrop" data-backdrop="zigzag" aria-hidden="true">
+            <div class="wf-backdrop-base wf-moving"></div>
+            <div class="wf-backdrop-sway wf-moving">
+              <div class="wf-backdrop-layer-a wf-moving"></div>
+              <div class="wf-backdrop-layer-b wf-moving"></div>
+            </div>
+            <div class="wf-backdrop-overlay"></div>
+          </div>
+          <figcaption class="wf-window">
+            <div class="wf-window-inner">
+              <p class="wf-label">5 · zigzag</p>
+              <p>Two rows of zigzags running opposite ways over deep green</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="tile">
+          <div class="wf-backdrop" data-backdrop="stars" aria-hidden="true">
+            <div class="wf-backdrop-base wf-moving"></div>
+            <div class="wf-backdrop-sway wf-moving">
+              <div class="wf-backdrop-layer-a wf-moving"></div>
+              <div class="wf-backdrop-layer-b wf-moving"></div>
+            </div>
+            <div class="wf-backdrop-overlay"></div>
+          </div>
+          <figcaption class="wf-window">
+            <div class="wf-window-inner">
+              <p class="wf-label">6 · stars</p>
+              <p>Two layers of stars falling at different speeds</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="tile">
+          <div class="wf-backdrop" data-backdrop="grid" aria-hidden="true">
+            <div class="wf-backdrop-base wf-moving"></div>
+            <div class="wf-backdrop-sway wf-moving">
+              <div class="wf-backdrop-layer-a wf-moving"></div>
+              <div class="wf-backdrop-layer-b wf-moving"></div>
+            </div>
+            <div class="wf-backdrop-overlay"></div>
+          </div>
+          <figcaption class="wf-window">
+            <div class="wf-window-inner">
+              <p class="wf-label">7 · grid</p>
+              <p>A pink grid rolling toward the horizon under a setting sun</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="tile">
+          <div class="wf-backdrop" data-backdrop="bubbles" aria-hidden="true">
+            <div class="wf-backdrop-base wf-moving"></div>
+            <div class="wf-backdrop-sway wf-moving">
+              <div class="wf-backdrop-layer-a wf-moving"></div>
+              <div class="wf-backdrop-layer-b wf-moving"></div>
+            </div>
+            <div class="wf-backdrop-overlay"></div>
+          </div>
+          <figcaption class="wf-window">
+            <div class="wf-window-inner">
+              <p class="wf-label">8 · bubbles</p>
+              <p>Rings of foam rising through dark water</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="tile">
+          <div class="wf-backdrop" data-backdrop="plaid" aria-hidden="true">
+            <div class="wf-backdrop-base wf-moving"></div>
+            <div class="wf-backdrop-sway wf-moving">
+              <div class="wf-backdrop-layer-a wf-moving"></div>
+              <div class="wf-backdrop-layer-b wf-moving"></div>
+            </div>
+            <div class="wf-backdrop-overlay"></div>
+          </div>
+          <figcaption class="wf-window">
+            <div class="wf-window-inner">
+              <p class="wf-label">9 · plaid</p>
+              <p>Peach rows and rose columns sliding past each other</p>
+            </div>
+          </figcaption>
+        </figure>
+        <figure class="tile">
+          <div class="wf-backdrop" data-backdrop="swirl" aria-hidden="true">
+            <div class="wf-backdrop-base wf-moving"></div>
+            <div class="wf-backdrop-sway wf-moving">
+              <div class="wf-backdrop-layer-a wf-moving"></div>
+              <div class="wf-backdrop-layer-b wf-moving"></div>
+            </div>
+            <div class="wf-backdrop-overlay"></div>
+          </div>
+          <figcaption class="wf-window">
+            <div class="wf-window-inner">
+              <p class="wf-label">10 · swirl</p>
+              <p>A slow color wheel turning while its colors cycle</p>
+            </div>
+          </figcaption>
+        </figure>
+      </main>
+    </div>
+    <script type="module">
+      const pause = document.querySelector("#pause");
+      pause.addEventListener("click", () => {
+        const paused = pause.getAttribute("aria-pressed") !== "true";
+        pause.setAttribute("aria-pressed", String(paused));
+        for (const backdrop of document.querySelectorAll(".wf-backdrop"))
+          backdrop.classList.toggle("wf-paused", paused);
+      });
+    </script>
+  </body>
+</html>
