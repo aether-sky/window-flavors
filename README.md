@@ -42,21 +42,21 @@ Without them, the style falls back to Courier New and the system font.
 
 ## The pieces
 
-| Class                                                           | What it is                                                                                 |
-| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| `wf`                                                            | Sets the colors and body text for everything inside                                        |
-| `wf-window`, `wf-window-inner`, `wf-window-warn`                | A window: outer frame, gap, inner frame; warn draws the frames in warn color               |
-| `wf-well`                                                       | A sunken panel inside a window                                                             |
-| `wf-pointer`                                                    | The ▶ beside a control on hover, focus, `aria-current`, `aria-pressed` and `aria-expanded` |
-| `wf-button`, `wf-button-primary`                                | A menu button; primary and `aria-pressed="true"` are filled                                |
-| `wf-choice`                                                     | A menu choice, dotted until `aria-current` or `aria-expanded` is true                      |
-| `wf-chip`, `wf-chip-accent`, `wf-chip-warn`                     | A small tag                                                                                |
-| `wf-input`                                                      | An input, select or textarea                                                               |
-| `wf-drums`, `wf-drum`, `wf-drum-strip`                          | A rolling counter; see below                                                               |
-| `wf-bar`                                                        | A meter; the width of its `span` is the amount                                             |
-| `wf-label`, `wf-pixel`, `wf-accent`, `wf-muted`, `wf-pixelated` | Text and image helpers                                                                     |
-| `wf-skip-link`                                                  | A skip link that shows on focus                                                            |
-| `wf-backdrop` and its parts                                     | The moving background; see below                                                           |
+| Class                                                           | What it is                                                                                                  |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `wf`                                                            | Sets the colors and body text for everything inside                                                         |
+| `wf-window`, `wf-window-inner`, `wf-window-warn`                | A window: outer frame, gap, inner frame; warn draws the frames in warn color                                |
+| `wf-well`                                                       | A sunken panel inside a window                                                                              |
+| `wf-pointer`                                                    | The ▶ beside a control on hover, focus, `aria-current`, `aria-pressed` and `aria-expanded`                  |
+| `wf-button`, `wf-button-primary`                                | A menu button; primary and `aria-pressed="true"` are filled                                                 |
+| `wf-choice`                                                     | A menu choice on a sunken fill, outlined on hover and filled when `aria-current` or `aria-expanded` is true |
+| `wf-chip`, `wf-chip-accent`, `wf-chip-warn`                     | A small tag                                                                                                 |
+| `wf-input`                                                      | An input, select or textarea                                                                                |
+| `wf-drums`, `wf-drum`, `wf-drum-strip`                          | A rolling counter; see below                                                                                |
+| `wf-bar`                                                        | A meter; the width of its `span` is the amount                                                              |
+| `wf-label`, `wf-pixel`, `wf-accent`, `wf-muted`, `wf-pixelated` | Text and image helpers                                                                                      |
+| `wf-skip-link`                                                  | A skip link that shows on focus                                                                             |
+| `wf-backdrop` and its parts                                     | The moving background; see below                                                                            |
 
 A counter's drums roll to a new number when it changes. Each digit's drum holds a strip of the ten digits, and
 `--wf-digit` says which one shows; any other character, such as a `k`, sits in its drum as plain text:
