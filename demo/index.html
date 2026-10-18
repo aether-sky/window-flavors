@@ -35,9 +35,24 @@
         margin: 0;
       }
       h1 {
+        font-size: clamp(32px, 6vw, 48px);
+      }
+      .header {
         max-width: 1200px;
         margin: 0 auto 24px;
-        font-size: clamp(32px, 6vw, 48px);
+      }
+      .header .wf-window-inner {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 12px 24px;
+      }
+      .backdrop-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        flex: 0 1 240px;
       }
       .row {
         display: flex;
@@ -63,14 +78,35 @@
   <body>
     <div class="wf stage">
       <div class="wf-backdrop" aria-hidden="true">
-        <div class="wf-backdrop-bands wf-moving"></div>
+        <div class="wf-backdrop-base wf-moving"></div>
         <div class="wf-backdrop-sway wf-moving">
-          <div class="wf-backdrop-waves-a wf-moving"></div>
-          <div class="wf-backdrop-waves-b wf-moving"></div>
+          <div class="wf-backdrop-layer-a wf-moving"></div>
+          <div class="wf-backdrop-layer-b wf-moving"></div>
         </div>
-        <div class="wf-backdrop-dots"></div>
+        <div class="wf-backdrop-overlay"></div>
       </div>
-      <h1 class="wf-pixel">Window flavors</h1>
+      <header class="header wf-window">
+        <div class="wf-window-inner">
+          <h1 class="wf-pixel">Window flavors</h1>
+          <label class="backdrop-field">
+            <span class="wf-label">Backdrop</span>
+            <select class="wf-input" id="backdrop">
+              <option>sunset</option>
+              <option>checker</option>
+              <option>stripes</option>
+              <option>rings</option>
+              <option>zigzag</option>
+              <option>stars</option>
+              <option>grid</option>
+              <option>bubbles</option>
+              <option>plaid</option>
+              <option>swirl</option>
+            </select>
+          </label>
+          <button type="button" class="wf-button wf-pointer" id="pause" aria-pressed="false">Pause backdrop</button>
+          <a class="wf-button wf-pointer" href="backdrops.html">All backdrops</a>
+        </div>
+      </header>
       <main class="flavors"></main>
     </div>
     <template id="flavor-window">
@@ -106,6 +142,21 @@
       </div>
     </template>
     <script type="module">
+      // The backdrop menu, also set by ?backdrop= in the address, and the pause button.
+      const backdrop = document.querySelector(".wf-backdrop");
+      const picker = document.querySelector("#backdrop");
+      const pause = document.querySelector("#pause");
+      const pickBackdrop = (name) => {
+        backdrop.dataset.backdrop = name;
+        picker.value = name;
+      };
+      pickBackdrop(new URLSearchParams(location.search).get("backdrop") ?? "sunset");
+      picker.addEventListener("change", () => pickBackdrop(picker.value));
+      pause.addEventListener("click", () => {
+        const paused = backdrop.classList.toggle("wf-paused");
+        pause.setAttribute("aria-pressed", String(paused));
+      });
+
       // One window per flavor, each from the same template.
       const flavors = document.querySelector(".flavors");
       const template = document.querySelector("#flavor-window");

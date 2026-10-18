@@ -1,0 +1,306 @@
+/* The moving backgrounds, picked with data-backdrop on .wf-backdrop; sunset when it has none. Each one fills the
+   nearest positioned ancestor and sits behind the windows, so text is never drawn over it. */
+
+.wf-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--wf-backdrop);
+}
+
+.wf-backdrop-base,
+.wf-backdrop-sway,
+.wf-backdrop-layer-a,
+.wf-backdrop-layer-b,
+.wf-backdrop-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+/* The sway bends the two layers inside it. */
+.wf-backdrop-sway {
+  inset: -80px 0;
+  animation: wf-sway 18s ease-in-out infinite alternate;
+}
+
+.wf-backdrop-overlay {
+  background: radial-gradient(rgba(12, 4, 30, 0.35) 1px, transparent 1.6px) 0 0 / 6px 6px;
+}
+
+.wf-backdrop.wf-paused .wf-moving {
+  animation-play-state: paused;
+}
+
+/* A layer that slides by its own --wf-shift-x and --wf-shift-y, one tile of its pattern, so the loop has no seam. */
+@keyframes wf-shift {
+  to {
+    transform: translate(var(--wf-shift-x, 0px), var(--wf-shift-y, 0px));
+  }
+}
+@keyframes wf-sway {
+  from {
+    transform: skewY(-1.5deg) scaleY(1);
+  }
+  to {
+    transform: skewY(1.5deg) scaleY(1.03);
+  }
+}
+@keyframes wf-pulse {
+  to {
+    transform: scale(1.25);
+  }
+}
+@keyframes wf-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@keyframes wf-hue {
+  to {
+    filter: hue-rotate(1turn);
+  }
+}
+@keyframes wf-tilt-drift {
+  from {
+    transform: rotate(-9deg) translateX(-80px);
+  }
+  to {
+    transform: rotate(-9deg) translateX(80px);
+  }
+}
+@keyframes wf-roll {
+  to {
+    background-position:
+      0 80px,
+      0 80px;
+  }
+}
+
+/* Sunset: purple and orange bands rolling down under cream and mint waves. */
+:where(.wf-backdrop:not([data-backdrop]), .wf-backdrop[data-backdrop="sunset"]) .wf-backdrop-base {
+  top: -600px;
+  background: repeating-linear-gradient(
+    180deg,
+    #2b1460 0px,
+    #4b1f7c 90px,
+    #7b2a88 180px,
+    #b0406f 260px,
+    #d8744b 300px,
+    #b0406f 340px,
+    #7b2a88 420px,
+    #4b1f7c 510px,
+    #2b1460 600px
+  );
+  --wf-shift-y: 600px;
+  animation: wf-shift 64s linear infinite;
+}
+:where(.wf-backdrop:not([data-backdrop]), .wf-backdrop[data-backdrop="sunset"]) .wf-backdrop-layer-a {
+  left: -120px;
+  right: -120px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30'%3E%3Cpath d='M0 15 C15 3 45 3 60 15 S105 27 120 15' fill='none' stroke='%23ffe9b8' stroke-opacity='0.26' stroke-width='5'/%3E%3C/svg%3E");
+  --wf-shift-x: 120px;
+  animation: wf-shift 32s linear infinite;
+}
+:where(.wf-backdrop:not([data-backdrop]), .wf-backdrop[data-backdrop="sunset"]) .wf-backdrop-layer-b {
+  left: -100px;
+  right: -100px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='46'%3E%3Cpath d='M0 23 C20 6 60 6 80 23 S140 40 160 23' fill='none' stroke='%237ef0d8' stroke-opacity='0.22' stroke-width='7'/%3E%3C/svg%3E");
+  transform: rotate(-9deg);
+  animation: wf-tilt-drift 40s ease-in-out infinite alternate;
+}
+
+/* Checker: a mint checkerboard sliding diagonally over violet, wobbling as it goes. */
+.wf-backdrop[data-backdrop="checker"] {
+  background: linear-gradient(180deg, #1a0f3d, #3a1257);
+}
+.wf-backdrop[data-backdrop="checker"] .wf-backdrop-layer-a {
+  inset: -96px;
+  background: repeating-conic-gradient(rgba(126, 240, 216, 0.16) 0 25%, transparent 0 50%) 0 0 / 96px 96px;
+  --wf-shift-x: 96px;
+  --wf-shift-y: 96px;
+  animation: wf-shift 24s linear infinite;
+}
+
+/* Stripes: pink candy stripes and thin yellow ones crossing on the slant. */
+.wf-backdrop[data-backdrop="stripes"] {
+  background: #2a0d2e;
+}
+.wf-backdrop[data-backdrop="stripes"] .wf-backdrop-layer-a {
+  inset: -50%;
+  rotate: -30deg;
+  background: repeating-linear-gradient(90deg, rgba(255, 163, 196, 0.18) 0 20px, transparent 20px 56px);
+  --wf-shift-x: 56px;
+  animation: wf-shift 20s linear infinite;
+}
+.wf-backdrop[data-backdrop="stripes"] .wf-backdrop-layer-b {
+  inset: -50%;
+  rotate: -30deg;
+  background: repeating-linear-gradient(90deg, rgba(255, 228, 90, 0.1) 0 6px, transparent 6px 28px);
+  --wf-shift-x: -28px;
+  animation: wf-shift 30s linear infinite;
+}
+
+/* Rings: two sets of circles, mint and gold, slowly swelling out of step. */
+.wf-backdrop[data-backdrop="rings"] {
+  background: radial-gradient(circle at 50% 40%, #16304a, #0b1724);
+}
+.wf-backdrop[data-backdrop="rings"] .wf-backdrop-layer-a {
+  inset: -50%;
+  background: repeating-radial-gradient(circle, rgba(126, 239, 192, 0.16) 0 10px, transparent 10px 40px);
+  animation: wf-pulse 16s ease-in-out infinite alternate;
+}
+.wf-backdrop[data-backdrop="rings"] .wf-backdrop-layer-b {
+  inset: -50%;
+  background: repeating-radial-gradient(circle at 30% 70%, rgba(255, 215, 94, 0.1) 0 6px, transparent 6px 52px);
+  animation: wf-pulse 22s ease-in-out infinite alternate-reverse;
+}
+
+/* Zigzag: two rows of zigzags running opposite ways over deep green. */
+.wf-backdrop[data-backdrop="zigzag"] {
+  background: linear-gradient(180deg, #0e2a22, #12261f 60%, #1d3a2a);
+}
+.wf-backdrop[data-backdrop="zigzag"] .wf-backdrop-layer-a {
+  left: -80px;
+  right: -80px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='40'%3E%3Cpath d='M0 30 L20 10 L40 30 L60 10 L80 30' fill='none' stroke='%23c4f2da' stroke-opacity='0.2' stroke-width='5'/%3E%3C/svg%3E");
+  --wf-shift-x: 80px;
+  animation: wf-shift 20s linear infinite;
+}
+.wf-backdrop[data-backdrop="zigzag"] .wf-backdrop-layer-b {
+  left: -60px;
+  right: -60px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='70'%3E%3Cpath d='M0 55 L15 40 L30 55 L45 40 L60 55' fill='none' stroke='%23ffe45a' stroke-opacity='0.14' stroke-width='3'/%3E%3C/svg%3E");
+  --wf-shift-x: -60px;
+  animation: wf-shift 28s linear infinite;
+}
+
+/* Stars: two layers of stars falling at different speeds through a still night. */
+.wf-backdrop[data-backdrop="stars"] {
+  background: radial-gradient(ellipse at 50% 0%, #1b2550, #070a1a 70%);
+}
+.wf-backdrop[data-backdrop="stars"] .wf-backdrop-sway {
+  animation: none;
+}
+.wf-backdrop[data-backdrop="stars"] .wf-backdrop-overlay {
+  background: none;
+}
+.wf-backdrop[data-backdrop="stars"] .wf-backdrop-layer-a {
+  top: -200px;
+  background:
+    radial-gradient(circle at 20px 30px, rgba(255, 255, 255, 0.8) 0 1.2px, transparent 1.8px),
+    radial-gradient(circle at 84px 118px, rgba(255, 255, 255, 0.6) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 152px 58px, rgba(255, 233, 184, 0.85) 0 1.4px, transparent 2px),
+    radial-gradient(circle at 112px 172px, rgba(126, 240, 216, 0.75) 0 1px, transparent 1.6px),
+    radial-gradient(circle at 176px 140px, rgba(255, 255, 255, 0.55) 0 0.8px, transparent 1.4px),
+    radial-gradient(circle at 46px 186px, rgba(255, 255, 255, 0.6) 0 1px, transparent 1.6px);
+  background-size: 200px 200px;
+  --wf-shift-y: 200px;
+  animation: wf-shift 40s linear infinite;
+}
+.wf-backdrop[data-backdrop="stars"] .wf-backdrop-layer-b {
+  top: -300px;
+  background:
+    radial-gradient(circle at 60px 90px, rgba(255, 255, 255, 0.9) 0 2px, transparent 2.6px),
+    radial-gradient(circle at 220px 230px, rgba(255, 163, 196, 0.85) 0 1.6px, transparent 2.2px),
+    radial-gradient(circle at 250px 40px, rgba(255, 233, 184, 0.9) 0 1.8px, transparent 2.4px);
+  background-size: 300px 300px;
+  --wf-shift-y: 300px;
+  animation: wf-shift 24s linear infinite;
+}
+
+/* Grid: a pink grid rolling toward the horizon under a setting sun. It's measured from the top, so on a long page the
+   floor carries on down. */
+.wf-backdrop[data-backdrop="grid"] {
+  background:
+    linear-gradient(180deg, #12002a 0px, #2a0846 300px, #5a1478 380px, #1c0533 400px) top / 100% 400px no-repeat,
+    #1c0533;
+}
+.wf-backdrop[data-backdrop="grid"] .wf-backdrop-sway {
+  inset: 0;
+  animation: none;
+}
+.wf-backdrop[data-backdrop="grid"] .wf-backdrop-layer-a {
+  inset: 380px -50% 0;
+  background:
+    linear-gradient(rgba(255, 163, 196, 0.35) 2px, transparent 2px) 0 0 / 80px 80px,
+    linear-gradient(90deg, rgba(255, 163, 196, 0.35) 2px, transparent 2px) 0 0 / 80px 80px;
+  transform: perspective(300px) rotateX(60deg);
+  transform-origin: top;
+  animation: wf-roll 10s linear infinite;
+}
+.wf-backdrop[data-backdrop="grid"] .wf-backdrop-layer-b {
+  inset: auto;
+  top: 150px;
+  left: 50%;
+  width: 240px;
+  height: 240px;
+  margin-left: -120px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #ffd75e, #ff6f91);
+  clip-path: inset(0 0 calc(100% - 230px) 0);
+  opacity: 0.5;
+}
+
+/* Bubbles: rings of foam rising through dark water. */
+.wf-backdrop[data-backdrop="bubbles"] {
+  background: linear-gradient(180deg, #0a2a3a, #061520);
+}
+.wf-backdrop[data-backdrop="bubbles"] .wf-backdrop-layer-a {
+  bottom: -240px;
+  background:
+    radial-gradient(circle at 40px 60px, transparent 14px, rgba(196, 242, 218, 0.25) 15px 17px, transparent 18px),
+    radial-gradient(circle at 150px 180px, transparent 8px, rgba(196, 242, 218, 0.25) 9px 10px, transparent 11px),
+    radial-gradient(circle at 200px 40px, transparent 22px, rgba(255, 255, 255, 0.12) 23px 25px, transparent 26px);
+  background-size: 240px 240px;
+  --wf-shift-y: -240px;
+  animation: wf-shift 30s linear infinite;
+}
+.wf-backdrop[data-backdrop="bubbles"] .wf-backdrop-layer-b {
+  bottom: -160px;
+  background:
+    radial-gradient(circle at 30px 120px, transparent 5px, rgba(126, 239, 192, 0.2) 6px 7px, transparent 8px),
+    radial-gradient(circle at 110px 30px, transparent 10px, rgba(196, 242, 218, 0.16) 11px 12px, transparent 13px);
+  background-size: 160px 160px;
+  --wf-shift-y: -160px;
+  animation: wf-shift 45s linear infinite;
+}
+
+/* Plaid: peach rows and rose columns sliding past each other. */
+.wf-backdrop[data-backdrop="plaid"] {
+  background: #2b1a10;
+}
+.wf-backdrop[data-backdrop="plaid"] .wf-backdrop-layer-a {
+  top: -60px;
+  background: repeating-linear-gradient(0deg, rgba(246, 187, 124, 0.16) 0 18px, transparent 18px 60px);
+  --wf-shift-y: 60px;
+  animation: wf-shift 26s linear infinite;
+}
+.wf-backdrop[data-backdrop="plaid"] .wf-backdrop-layer-b {
+  left: -60px;
+  background: repeating-linear-gradient(90deg, rgba(255, 155, 155, 0.12) 0 12px, transparent 12px 60px);
+  --wf-shift-x: 60px;
+  animation: wf-shift 34s linear infinite;
+}
+
+/* Swirl: a slow color wheel turning while its colors cycle, under faint ripples. */
+.wf-backdrop[data-backdrop="swirl"] {
+  background: #200b33;
+}
+.wf-backdrop[data-backdrop="swirl"] .wf-backdrop-base {
+  inset: -50%;
+  background: conic-gradient(#3a1257, #1a3d5c, #12402f, #4d3a0d, #4d1530, #3a1257);
+  animation:
+    wf-spin 120s linear infinite,
+    wf-hue 40s linear infinite;
+}
+.wf-backdrop[data-backdrop="swirl"] .wf-backdrop-layer-a {
+  inset: -50%;
+  background: repeating-radial-gradient(circle, rgba(255, 255, 255, 0.06) 0 3px, transparent 3px 30px);
+}
+
+@media (forced-colors: active) {
+  .wf-backdrop {
+    display: none;
+  }
+}

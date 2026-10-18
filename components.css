@@ -111,6 +111,7 @@
   padding: 6px 16px 6px 30px;
   min-height: 44px;
   cursor: pointer;
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -259,101 +260,6 @@ textarea.wf-input {
   top: 16px;
 }
 
-/* The moving background. It fills the nearest positioned ancestor and sits behind the windows, never under text. */
-.wf-backdrop {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  overflow: hidden;
-  background: var(--wf-backdrop);
-}
-
-.wf-backdrop-bands {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -600px;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    180deg,
-    #2b1460 0px,
-    #4b1f7c 90px,
-    #7b2a88 180px,
-    #b0406f 260px,
-    #d8744b 300px,
-    #b0406f 340px,
-    #7b2a88 420px,
-    #4b1f7c 510px,
-    #2b1460 600px
-  );
-  animation: wf-bands 64s linear infinite;
-}
-
-.wf-backdrop-sway {
-  position: absolute;
-  inset: -80px 0;
-  animation: wf-sway 18s ease-in-out infinite alternate;
-}
-
-.wf-backdrop-waves-a,
-.wf-backdrop-waves-b {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-}
-
-.wf-backdrop-waves-a {
-  left: -120px;
-  right: -120px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='30'%3E%3Cpath d='M0 15 C15 3 45 3 60 15 S105 27 120 15' fill='none' stroke='%23ffe9b8' stroke-opacity='0.26' stroke-width='5'/%3E%3C/svg%3E");
-  animation: wf-drift-a 32s linear infinite;
-}
-
-.wf-backdrop-waves-b {
-  left: -100px;
-  right: -100px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='46'%3E%3Cpath d='M0 23 C20 6 60 6 80 23 S140 40 160 23' fill='none' stroke='%237ef0d8' stroke-opacity='0.22' stroke-width='7'/%3E%3C/svg%3E");
-  transform: rotate(-9deg);
-  animation: wf-drift-b 40s ease-in-out infinite alternate;
-}
-
-.wf-backdrop-dots {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(rgba(12, 4, 30, 0.35) 1px, transparent 1.6px) 0 0 / 6px 6px;
-}
-
-.wf-backdrop.wf-paused .wf-moving {
-  animation-play-state: paused;
-}
-
-@keyframes wf-bands {
-  to {
-    transform: translateY(600px);
-  }
-}
-@keyframes wf-drift-a {
-  to {
-    transform: translateX(120px);
-  }
-}
-@keyframes wf-drift-b {
-  from {
-    transform: rotate(-9deg) translateX(-80px);
-  }
-  to {
-    transform: rotate(-9deg) translateX(80px);
-  }
-}
-@keyframes wf-sway {
-  from {
-    transform: skewY(-1.5deg) scaleY(1);
-  }
-  to {
-    transform: skewY(1.5deg) scaleY(1.03);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .wf-moving {
     animation: none !important;
@@ -361,9 +267,6 @@ textarea.wf-input {
 }
 
 @media (forced-colors: active) {
-  .wf-backdrop {
-    display: none;
-  }
   .wf-pointer::before,
   .wf-bar > span {
     background: CanvasText;
