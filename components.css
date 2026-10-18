@@ -15,9 +15,11 @@
   outline-offset: 3px;
 }
 
+/* Pixel text is 16px unless a rule gives it another --wf-pixel size. */
 .wf-pixel {
   font-family: var(--wf-pixel-font);
   font-weight: 400;
+  font-size: var(--wf-pixel-1);
 }
 
 .wf-pixelated {
